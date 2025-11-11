@@ -122,3 +122,6 @@ Esta etapa foca na principal interação do médico com o sistema: a submissão 
 *   **Qualidade do Código:** Código limpo, legível e consistente.
 *   **Proficiência com o Stack:** Uso eficaz de NestJS, Guards, RabbitMQ, Next.js, Prisma, React, MUI.
 *   **Comunicação:** Clareza nas explicações fornecidas no template do Pull Request.
+
+Após a entrega, o seu projeto será avaliado pela nossa equipe e, posteriormente, entraremos em contato para agendar uma nova reunião junto à nossa equipe caso você siga em nosso processo seletivo.
+Boa sorte!
