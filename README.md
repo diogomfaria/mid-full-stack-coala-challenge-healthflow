@@ -1,3 +1,21 @@
+## Como Rodar
+
+```bash
+git clone <repo>
+cd mid-full-stack-coala-challenge-healthflow
+docker-compose up
+```
+
+Aguarde ~30 segundos para o banco inicializar. Depois acesse:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:3001
+
+### Credenciais (já criadas automaticamente)
+- **Atendente**: atendente@healthflow.com / senha123
+- **Médico**: medico@healthflow.com / senha123
+
+---
+
 ### **Desafio Técnico: Dev Full Stack Pleno (Coala Saúde)**
 
 **Introdução**

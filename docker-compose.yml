@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: healthflow
+      POSTGRES_PASSWORD: healthflow123
+      POSTGRES_DB: healthflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: healthflow
+      RABBITMQ_DEFAULT_PASS: healthflow123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: "postgresql://healthflow:healthflow123@postgres:5432/healthflow?schema=public"
+      JWT_SECRET: "development_secret"
+      JWT_EXPIRES_IN: "1h"
+      RABBITMQ_URL: "amqp://healthflow:healthflow123@rabbitmq:5672"
+      RABBITMQ_EXAM_QUEUE: "exam_processing_queue"
+      PORT: 3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - rabbitmq
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed && pnpm start:dev"
+
+  frontend:
+    build: ./frontend
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost:3001"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
