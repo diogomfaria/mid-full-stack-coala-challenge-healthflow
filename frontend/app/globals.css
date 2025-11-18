@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --motion-duration-fast: 120ms;
+  --motion-duration-medium: 240ms;
+  --motion-duration-slow: 360ms;
+  --motion-ease-out: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --shadow-elev-1: 0 6px 12px rgba(78, 42, 200, 0.08);
+  --shadow-elev-2: 0 12px 24px rgba(78, 42, 200, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --shadow-elev-1: var(--shadow-elev-1);
+  --shadow-elev-2: var(--shadow-elev-2);
+  --motion-duration-fast: var(--motion-duration-fast);
+  --motion-duration-medium: var(--motion-duration-medium);
+  --motion-duration-slow: var(--motion-duration-slow);
+  --motion-ease-out: var(--motion-ease-out);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.animate-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.15),
+    rgba(148, 163, 184, 0.3),
+    rgba(148, 163, 184, 0.15)
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer var(--motion-duration-slow) linear infinite;
+}
+
+@keyframes toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+.toast-progress {
+  transform-origin: left;
+  animation: toast-progress 4s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-skeleton {
+    animation-duration: 800ms;
+  }
+
+  .toast-progress {
+    animation-duration: 2s;
+  }
+}
+
+@keyframes icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-spin {
+  animation: icon-spin 0.75s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-spin {
+    animation-duration: 1.5s;
+  }
+}
