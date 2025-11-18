@@ -1,0 +1,7 @@
+export enum ExamStatus {
+  PENDING = 'PENDING',
+  PROCESSING = 'PROCESSING',
+  DONE = 'DONE',
+  ERROR = 'ERROR',
+  REPORTED = 'REPORTED',
+}

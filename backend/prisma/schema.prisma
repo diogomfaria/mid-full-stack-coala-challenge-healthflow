@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ATTENDANT
+  DOCTOR
+}
+
+enum ExamStatus {
+  PENDING
+  PROCESSING
+  DONE
+  ERROR
+  REPORTED
+}
+
+model User {
+  id        String        @id @default(uuid())
+  email     String        @unique
+  password  String
+  role      UserRole
+  exams     MedicalExam[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([role])
+  @@index([createdAt])
+}
+
+model MedicalExam {
+  id               String     @id @default(uuid())
+  status           ExamStatus @default(PENDING)
+  processingResult String?
+  report           String?    @db.Text
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  description      String
+  patientName      String
+  createdById      String
+  createdBy        User       @relation(fields: [createdById], references: [id])
+
+  @@index([status])
+  @@index([createdById])
+  @@index([createdAt(sort: Desc)])
+  @@index([status, createdAt])
+}
